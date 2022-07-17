@@ -16,18 +16,16 @@ int main(int argc, char *argv[])
         inventory[i] = NULL;
     }
 
-    Scene *myScene = newScene("prachtig");
-    printf("Debug\n");
+    Scene *myScene = newScene("Scene 1");
     Scene *sceneTwo = newScene("Tweede scene");
 
-    Option *myOption = newOption("mooie optie", "pap", "", sceneTwo, basicHandler);
+    Option *myOption = newOption("Mooie optie", "pap", "", sceneTwo, basicHandler);
     linkedListAppend(myScene->options, myOption);
 
     Option *optionTwo = newOption("Mooie optie van scene 2", "", "pap", myScene, basicHandler);
     linkedListAppend(sceneTwo->options, optionTwo);
 
     // gameloop
-    clrscrn();
     Scene *currentScene = myScene;
     while (currentScene != NULL)
     {
