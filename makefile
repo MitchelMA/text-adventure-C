@@ -1,7 +1,8 @@
 CC := gcc
 CFLAGS := -g -Wall -O
 
-source_files := main.o
+source_files := main.o \
+LinkedList\linkedlist.o\
 
 all: $(source_files)
 	$(CC) -o main $(CFLAGS) $(source_files)
