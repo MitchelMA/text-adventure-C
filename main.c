@@ -3,10 +3,16 @@
 #include "LinkedList\linkedlist.h"
 #include "extra/bool.h"
 
+Scene *basicHandler(Scene *currentScene, Option *chosenOption)
+{
+    printf("chosen option: %s", chosenOption->optionText);
+    return chosenOption->nextScene;
+}
+
 int main(int argc, char *argv[])
 {
     Scene *myScene = newScene("prachtig");
-    Option *myOption = newOption("mooie optie", "", "", myScene);
+    Option *myOption = newOption("mooie optie", "", "", myScene, basicHandler);
     linkedListAppend(myScene->options, myOption);
     printf("adress van `myScene`: %p\n", myScene);
     printf("Text: %s\n", myScene->sceneText);

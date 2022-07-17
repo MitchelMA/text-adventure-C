@@ -4,6 +4,6 @@
 
 Scene *newScene(char *text);
 
-Option *newOption(char *optionText, char *get, char *need, Scene *nextScene);
+Option *newOption(char *optionText, char *get, char *need, Scene *nextScene, Scene *(*handler)(Scene *, Option *));
 
 #endif
