@@ -24,6 +24,7 @@ Scene *testRem(Scene *currentScene, Option *chosenOption, char **inventory, int 
             {
                 // match found
                 linkedListRemoveAt(currentScene->options, index);
+                free(chosenOption);
                 break;
             }
             index++;
