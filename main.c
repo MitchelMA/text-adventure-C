@@ -13,8 +13,22 @@ Scene *testRem(Scene *currentScene, Option *chosenOption, char **inventory, int 
     if (strcmp(inp, "1234"))
     {
         printf("Dat was het verkeerde wachtwoord");
-        linkedListRemoveAt(currentScene->options, 0);
         blockWithInput();
+        // find the chosen option in the options
+        LinkedListNode *node = currentScene->options->head;
+        int index = 0;
+        while (node != NULL)
+        {
+            printf("Test\n");
+            if (node->value == chosenOption)
+            {
+                // match found
+                linkedListRemoveAt(currentScene->options, index);
+                break;
+            }
+            index++;
+            node = node->next;
+        }
         return currentScene;
     }
 
@@ -38,7 +52,9 @@ int main(int argc, char *argv[])
     linkedListAppend(myScene->options, myOption);
 
     Option *optionTwo = newOption("Mooie optie van scene 2", "", "pap", myScene, testRem);
+    Option *optionThree = newOption("Mooie optie van scene 2 2.0", "gek", "", myScene, basicHandler);
     linkedListAppend(sceneTwo->options, optionTwo);
+    linkedListAppend(sceneTwo->options, optionThree);
 
     // gameloop
     Scene *currentScene = myScene;
