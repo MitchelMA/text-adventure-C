@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "Adventure/adventure.h"
-#include "LinkedList\linkedlist.h"
+#include "LinkedList/linkedlist.h"
 #include "extra/bool.h"
 #include "extra/clearscreen.h"
 #include "extra/input.h"

@@ -1,7 +1,7 @@
 #ifndef LINKEDLIST_HEADER
 #define LINKEDLIST_HEADER
-#include "..\Structs\Structs.h"
-#include "..\extra\bool.h"
+#include "../Structs/Structs.h"
+#include "../extra/bool.h"
 
 LinkedList *newLinkedList();
 void linkedListAppend(LinkedList *list, Option *value);

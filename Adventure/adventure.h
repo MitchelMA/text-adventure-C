@@ -1,6 +1,6 @@
 #ifndef ADVENTURE_HEADER
 #define ADVENTURE_HEADER
-#include "..\Structs\Structs.h"
+#include "../Structs/Structs.h"
 
 Scene *newScene(char *text);
 
