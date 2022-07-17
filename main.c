@@ -25,14 +25,40 @@ int main(int argc, char *argv[])
 
     Option *optionTwo = newOption("Mooie optie van scene 2", "", "pap", myScene, basicHandler);
     linkedListAppend(sceneTwo->options, optionTwo);
+
+    // gameloop
     clrscrn();
     Scene *currentScene = myScene;
     while (currentScene != NULL)
     {
         clrscrn();
         initScene(currentScene);
-        int input = inputAsNum();
-        Option *chosenOption = handleInput(currentScene, input);
+        char *inp = safeInput(256);
+
+        // way to check the inventory
+        if (!strcmp(inp, "inventory"))
+        {
+            for (int i = 0; i < INVENTORY_LEN; i++)
+            {
+                if (inventory[i] != NULL)
+                {
+                    printf("%d. %s\n", i + 1, inventory[i]);
+                }
+            }
+            blockWithInput();
+            continue;
+        }
+
+        // way to exit the game
+        if (!strcmp(inp, "q") || !strcmp(inp, "exit") || !strcmp(inp, "quit"))
+        {
+            printf("Bedankt voor het spelen!");
+            break;
+        }
+
+        int inpN = 0;
+        sscanf(inp, "%d", &inpN);
+        Option *chosenOption = handleInput(currentScene, inpN);
         if (chosenOption == NULL)
         {
             printf("Dit is geen optie!");
