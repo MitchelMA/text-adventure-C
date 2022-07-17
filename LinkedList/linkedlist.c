@@ -9,7 +9,7 @@ LinkedList *newLinkedList()
     return tmp;
 }
 
-void linkedListAppend(LinkedList *list, int value)
+void linkedListAppend(LinkedList *list, Option *value)
 {
     list->size++;
     if (list->head == NULL)
@@ -24,7 +24,7 @@ void linkedListAppend(LinkedList *list, int value)
     return appendAtNode(list->head, value);
 }
 
-void appendAtNode(LinkedListNode *node, int value)
+void appendAtNode(LinkedListNode *node, Option *value)
 {
     if (node == NULL)
     {
