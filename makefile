@@ -3,8 +3,7 @@ CFLAGS := -g -Wall -O
 
 source_files := main.o \
 LinkedList\linkedlist.o \
-Adventure\scene.o \
-Adventure\option.o \
+Adventure\adventure.o \
 extra\clearscreen.o \
 extra\input.o
 

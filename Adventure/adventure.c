@@ -5,6 +5,7 @@
 #include "adventure.h"
 #include "../extra/input.h"
 
+// `Scene` implementations --------------- //
 Scene *newScene(char *text)
 {
     Scene *tmp = (Scene *)malloc(sizeof(Scene));
@@ -50,6 +51,19 @@ Option *handleInput(Scene *scene, int input)
     return node->value;
 }
 
+// `Option` implementations -------------- //
+Option *newOption(char *optionText, char *get, char *need, Scene *nextScene, Scene *(*handler)(Scene *, Option *, char **, int))
+{
+    Option *tmp = (Option *)malloc(sizeof(Option));
+    tmp->optionText = optionText;
+    tmp->get = get;
+    tmp->need = need;
+    tmp->nextScene = nextScene;
+    tmp->handler = handler;
+    return tmp;
+}
+
+// Example Handler(s) -------------------- //
 Scene *basicHandler(Scene *currentScene, Option *chosenOption, char **inventory, int inventorySize)
 {
     // check for need
