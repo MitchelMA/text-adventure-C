@@ -1,28 +1,45 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "Adventure/adventure.h"
 #include "LinkedList/linkedlist.h"
-#include "extra/bool.h"
 #include "extra/clearscreen.h"
 #include "extra/input.h"
 
-Scene *basicHandler(Scene *currentScene, Option *chosenOption)
-{
-    printf("chosen option: %s", chosenOption->optionText);
-    return chosenOption->nextScene;
-}
-
 int main(int argc, char *argv[])
 {
+    const int INVENTORY_LEN = 10;
+
+    char **inventory = (char **)malloc(sizeof(char *) * INVENTORY_LEN);
+    for (int i = 0; i < INVENTORY_LEN; i++)
+    {
+        inventory[i] = NULL;
+    }
+
     Scene *myScene = newScene("prachtig");
-    Option *myOption = newOption("mooie optie", "", "", myScene, basicHandler);
+    printf("Debug\n");
+    Scene *sceneTwo = newScene("Tweede scene");
+
+    Option *myOption = newOption("mooie optie", "pap", "", sceneTwo, basicHandler);
     linkedListAppend(myScene->options, myOption);
-    printf("adress van `myScene`: %p\n", myScene);
-    printf("Text: %s\n", myScene->sceneText);
-    printf("Optie 1: %s\n", myScene->options->head->value->optionText);
-    printf("referentie: %p\n", myScene->options->head->value->nextScene);
+
+    Option *optionTwo = newOption("Mooie optie van scene 2", "", "pap", myScene, basicHandler);
+    linkedListAppend(sceneTwo->options, optionTwo);
     clrscrn();
-    printf("input: ");
-    int input = inputAsNum();
-    printf("gegeven input was: %d", input);
+    Scene *currentScene = myScene;
+    while (currentScene != NULL)
+    {
+        clrscrn();
+        initScene(currentScene);
+        int input = inputAsNum();
+        Option *chosenOption = handleInput(currentScene, input);
+        if (chosenOption == NULL)
+        {
+            printf("Dit is geen optie!");
+            blockWithInput();
+            continue;
+        }
+        currentScene = (*chosenOption->handler)(currentScene, chosenOption, inventory, INVENTORY_LEN);
+    }
     return 0;
 }

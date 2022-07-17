@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "adventure.h"
 
-Option *newOption(char *optionText, char *get, char *need, Scene *nextScene, Scene *(*handler)(Scene *, Option *))
+Option *newOption(char *optionText, char *get, char *need, Scene *nextScene, Scene *(*handler)(Scene *, Option *, char **, int))
 {
     Option *tmp = (Option *)malloc(sizeof(Option));
     tmp->optionText = optionText;

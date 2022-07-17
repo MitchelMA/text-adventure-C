@@ -14,3 +14,8 @@ int inputAsNum()
 
     return i;
 }
+
+void blockWithInput()
+{
+    fgetc(stdin);
+}

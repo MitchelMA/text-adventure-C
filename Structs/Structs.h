@@ -29,7 +29,7 @@ struct Option
     char *get;
     char *need;
     Scene *nextScene;
-    Scene *(*handler)(Scene *, Option *);
+    Scene *(*handler)(Scene *, Option *, char **, int);
 };
 
 struct LinkedList
