@@ -1,7 +1,6 @@
 #ifndef LINKEDLIST_HEADER
 #define LINKEDLIST_HEADER
 #include "..\Structs\Structs.h"
-#include "..\Adventure\adventure.h"
 #include "..\extra\bool.h"
 
 LinkedList *newLinkedList();

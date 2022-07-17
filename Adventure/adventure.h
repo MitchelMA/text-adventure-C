@@ -1,7 +1,6 @@
 #ifndef ADVENTURE_HEADER
 #define ADVENTURE_HEADER
 #include "..\Structs\Structs.h"
-#include "..\LinkedList\linkedlist.h"
 
 Scene *newScene(char *text);
 

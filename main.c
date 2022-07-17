@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "Adventure/adventure.h"
+#include "LinkedList\linkedlist.h"
 #include "extra/bool.h"
 
 int main(int argc, char *argv[])
