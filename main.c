@@ -2,6 +2,8 @@
 #include "Adventure/adventure.h"
 #include "LinkedList\linkedlist.h"
 #include "extra/bool.h"
+#include "extra/clearscreen.h"
+#include "extra/input.h"
 
 Scene *basicHandler(Scene *currentScene, Option *chosenOption)
 {
@@ -18,5 +20,9 @@ int main(int argc, char *argv[])
     printf("Text: %s\n", myScene->sceneText);
     printf("Optie 1: %s\n", myScene->options->head->value->optionText);
     printf("referentie: %p\n", myScene->options->head->value->nextScene);
+    clrscrn();
+    printf("input: ");
+    int input = inputAsNum();
+    printf("gegeven input was: %d", input);
     return 0;
 }
