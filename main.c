@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
         char *inp = safeInput(256);
 
         // way to check the inventory
-        if (!strcmp(inp, "inventory"))
+        if (!strcmp(inp, "inventory") || !strcmp(inp, "i"))
         {
             for (int i = 0; i < INVENTORY_LEN; i++)
             {
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
         }
 
         // way to exit the game
-        if (!strcmp(inp, "q") || !strcmp(inp, "exit") || !strcmp(inp, "quit"))
+        if (!strcmp(inp, "q") || !strcmp(inp, "e") || !strcmp(inp, "exit") || !strcmp(inp, "quit"))
         {
             printf("Bedankt voor het spelen!");
             break;
