@@ -24,7 +24,29 @@ void linkedListAppend(LinkedList *list, Option *value);
  * @param node
  * @param value
  */
-void appendAtNode(LinkedListNode *node, Option *value);
+// void appendEndNodeLinkage(LinkedListNode *node, Option *value);
+
+/**
+ * @brief Inserts an Option into the list before the index of the specified node
+ *
+ * @param list
+ * @param value
+ * @param index
+ * @return true
+ * @return false
+ */
+bool linkedListInsertBefore(LinkedList *list, Option *value, unsigned long long index);
+
+/**
+ * @brief Inserts an Option into the list after the index of the specified node
+ *
+ * @param list
+ * @param value
+ * @param index
+ * @return true
+ * @return false
+ */
+bool linkedListInsertAfter(LinkedList *list, Option *value, unsigned long long index);
 
 /**
  * @brief Gets the LinkedListNode at the specified index
@@ -41,15 +63,22 @@ LinkedListNode *linkedListAt(LinkedList *list, unsigned long long index);
  * @param node The node whose succesive node will get removed
  * @return A boolean determining if the node was removed or not
  */
-bool nodeRemoveNext(LinkedListNode *node);
+// bool nodeRemoveNext(LinkedListNode *node);
 
 /**
  * @brief Removes the LinkedListNode at the specified index
  *
  * @param list The list whose Node will get removed
  * @param index The index at which it will try to remove the node from
- * @return A boolean determining if the node was removed or not
+ * @return A pointer to the `Option` of this `LinkedListNode`
  */
-bool linkedListRemoveAt(LinkedList *list, unsigned long long index);
+Option *linkedListRemoveAt(LinkedList *list, unsigned long long index);
+
+/**
+ * @brief Frees the memory of a LinkedList
+ *
+ * @param list a pointer of type `LinkedList` at which the memory gets cleared
+ */
+void freeLinkedList(LinkedList *list);
 
 #endif

@@ -1,6 +1,7 @@
 #ifndef ADVENTURE_HEADER
 #define ADVENTURE_HEADER
 #include "../Structs/Structs.h"
+#include "../extra/bool.h"
 
 /**
  * @brief Creates a new instance of a Scene structure
@@ -25,6 +26,13 @@ void initScene(Scene *scene);
  * @return The chosen option by the user
  */
 Option *handleInput(Scene *scene, int input);
+
+/**
+ * @brief Frees the memory of a Scene
+ *
+ * @param scene A pointer of type `Scene` at which the memory gets cleared
+ */
+void freeScene(Scene *scene);
 
 /**
  * @brief Creates a new instance of an Option Structure

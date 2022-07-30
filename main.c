@@ -23,8 +23,11 @@ Scene *testRem(Scene *currentScene, Option *chosenOption, char **inventory, int 
             if (node->value == chosenOption)
             {
                 // match found
-                linkedListRemoveAt(currentScene->options, index);
-                free(chosenOption);
+                Option *torm = linkedListRemoveAt(currentScene->options, index);
+                if (torm != NULL)
+                {
+                    free(torm);
+                }
                 break;
             }
             index++;

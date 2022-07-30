@@ -1,5 +1,5 @@
 CC := gcc
-CFLAGS := -g -Wall -O
+CFLAGS := -g 
 
 source_files := main.o \
 LinkedList\linkedlist.o \

@@ -36,7 +36,7 @@ void initScene(Scene *scene)
 
 Option *handleInput(Scene *scene, int input)
 {
-    if (input < 1)
+    if (scene == NULL || input < 1)
     {
         return NULL;
     }
@@ -49,6 +49,16 @@ Option *handleInput(Scene *scene, int input)
     }
 
     return node->value;
+}
+
+void freeScene(Scene *scene)
+{
+    if (scene == NULL)
+    {
+        return;
+    }
+    freeLinkedList(scene->options);
+    free(scene);
 }
 
 // `Option` implementations -------------- //
