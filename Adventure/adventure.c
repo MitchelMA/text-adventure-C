@@ -124,7 +124,7 @@ Scene *basicHandler(Scene *currentScene, Option *chosenOption, char **inventory,
             {
                 if (inventory[i] == NULL)
                 {
-                    inventory[i] = (char *)malloc(sizeof(char) * strlen(chosenOption->get));
+                    inventory[i] = (char *)malloc(strlen(chosenOption->get) + 1);
                     strcpy(inventory[i], chosenOption->get);
                     printf("zojuist verkregen: %s\n", chosenOption->get);
                     blockWithInput();
