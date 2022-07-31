@@ -5,7 +5,8 @@ source_files := main.o \
 LinkedList\linkedlist.o \
 Adventure\adventure.o \
 extra\clearscreen.o \
-extra\input.o
+extra\input.o \
+Story\story.o
 
 all: $(source_files)
 	$(CC) -o main $(CFLAGS) $(source_files)
