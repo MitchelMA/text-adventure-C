@@ -52,11 +52,11 @@ int main(int argc, char *argv[])
     Scene *myScene = newScene("Scene 1");
     Scene *sceneTwo = newScene("Tweede scene");
 
-    Option *myOption = newOption("Mooie optie", "pap", "", sceneTwo, basicHandler);
+    Option *myOption = newOption("Mooie optie", "pap", NULL, sceneTwo, basicHandler);
     linkedListAppend(myScene->options, myOption);
 
-    Option *optionTwo = newOption("Mooie optie van scene 2", "", "pap", myScene, testRem);
-    Option *optionThree = newOption("Mooie optie van scene 2 2.0", "gek", "", myScene, basicHandler);
+    Option *optionTwo = newOption("Mooie optie van scene 2", NULL, "pap", myScene, testRem);
+    Option *optionThree = newOption("Mooie optie van scene 2 2.0", "gek", NULL, myScene, basicHandler);
     linkedListAppend(sceneTwo->options, optionTwo);
     linkedListAppend(sceneTwo->options, optionThree);
 

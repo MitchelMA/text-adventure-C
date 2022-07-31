@@ -77,7 +77,7 @@ Option *newOption(char *optionText, char *get, char *need, Scene *nextScene, Sce
 Scene *basicHandler(Scene *currentScene, Option *chosenOption, char **inventory, int inventorySize)
 {
     // check for need
-    if (strcmp(chosenOption->need, ""))
+    if (chosenOption->need != NULL && strcmp(chosenOption->need, ""))
     {
         bool has = false;
         for (int i = 0; i < inventorySize; i++)
@@ -102,7 +102,7 @@ Scene *basicHandler(Scene *currentScene, Option *chosenOption, char **inventory,
     }
 
     // check for get
-    if (strcmp(chosenOption->get, ""))
+    if (chosenOption->get != NULL && strcmp(chosenOption->get, ""))
     {
         bool has = false;
         for (int i = 0; i < inventorySize; i++)
@@ -122,14 +122,15 @@ Scene *basicHandler(Scene *currentScene, Option *chosenOption, char **inventory,
         {
             for (int i = 0; i < inventorySize; i++)
             {
-                if (inventory[i] == NULL)
+                if (inventory[i] != NULL)
                 {
-                    inventory[i] = (char *)malloc(strlen(chosenOption->get) + 1);
-                    strcpy(inventory[i], chosenOption->get);
-                    printf("zojuist verkregen: %s\n", chosenOption->get);
-                    blockWithInput();
-                    break;
+                    continue;
                 }
+                inventory[i] = (char *)malloc(strlen(chosenOption->get) + 1);
+                strcpy(inventory[i], chosenOption->get);
+                printf("zojuist verkregen: %s\n", chosenOption->get);
+                blockWithInput();
+                break;
             }
         }
     }
