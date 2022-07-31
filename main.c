@@ -5,6 +5,7 @@
 #include "LinkedList/linkedlist.h"
 #include "extra/clearscreen.h"
 #include "extra/input.h"
+#include "Story/story.h"
 
 Scene *testRem(Scene *currentScene, Option *chosenOption, char **inventory, int inventorySize)
 {
@@ -41,6 +42,7 @@ Scene *testRem(Scene *currentScene, Option *chosenOption, char **inventory, int 
 
 int main(int argc, char *argv[])
 {
+    setupStory();
     const int INVENTORY_LEN = 10;
 
     char **inventory = (char **)malloc(sizeof(char *) * INVENTORY_LEN);
@@ -49,19 +51,8 @@ int main(int argc, char *argv[])
         inventory[i] = NULL;
     }
 
-    Scene *myScene = newScene("Scene 1");
-    Scene *sceneTwo = newScene("Tweede scene");
-
-    Option *myOption = newOption("Mooie optie", "pap", NULL, sceneTwo, basicHandler);
-    linkedListAppend(myScene->options, myOption);
-
-    Option *optionTwo = newOption("Mooie optie van scene 2", NULL, "pap", myScene, testRem);
-    Option *optionThree = newOption("Mooie optie van scene 2 2.0", "gek", NULL, myScene, basicHandler);
-    linkedListAppend(sceneTwo->options, optionTwo);
-    linkedListAppend(sceneTwo->options, optionThree);
-
     // gameloop
-    Scene *currentScene = myScene;
+    Scene *currentScene = first;
     while (currentScene != NULL)
     {
         clrscrn();
@@ -79,6 +70,22 @@ int main(int argc, char *argv[])
                 }
             }
             blockWithInput();
+            continue;
+        }
+
+        // way to restart the game
+        if (!strcmp(inp, "r") || !strcmp(inp, "restart"))
+        {
+            currentScene = first;
+            // clear the inventory
+            for (int i = 0; i < INVENTORY_LEN; i++)
+            {
+                if (inventory[i] != NULL)
+                {
+                    free(inventory[i]);
+                    inventory[i] = NULL;
+                }
+            }
             continue;
         }
 
