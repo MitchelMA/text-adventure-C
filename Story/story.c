@@ -1,4 +1,5 @@
 #include "story.h"
+#include "../LinkedList/linkedlist.h"
 #include <stdlib.h>
 #include <stdio.h>
 
