@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Adventure/adventure.h"
-#include "LinkedList/linkedlist.h"
 #include "extra/clearscreen.h"
 #include "extra/input.h"
 #include "Story/story.h"
+#include "DoubleLinkedList/doubleLinkedList.h"
 
-Scene *testRem(Scene *currentScene, Option *chosenOption, char **inventory, int inventorySize)
+Scene *testRem(Scene *currentScene, Option *chosenOption, DoubleLinkedList *inv)
 {
     printf("voer het wachtwoord in: ");
     char *inp = safeInput(256);
@@ -16,21 +16,20 @@ Scene *testRem(Scene *currentScene, Option *chosenOption, char **inventory, int 
         printf("Dat was het verkeerde wachtwoord");
         blockWithInput();
         // find the chosen option in the options
-        LinkedListNode *node = currentScene->options->head;
-        int index = 0;
+        DoubleLinkedListNode *node = currentScene->options->head;
+        size_t index = 0;
         while (node != NULL)
         {
-            printf("Test\n");
             if (node->value == chosenOption)
             {
-                // match found
-                Option *torm = linkedListRemoveAt(currentScene->options, index);
-                if (torm != NULL)
+                Option *torm;
+                if (list_remove_at(currentScene->options, index, (void **)&torm))
                 {
                     free(torm);
                 }
                 break;
             }
+
             index++;
             node = node->next;
         }
@@ -43,13 +42,9 @@ Scene *testRem(Scene *currentScene, Option *chosenOption, char **inventory, int 
 int main(int argc, char *argv[])
 {
     setupStory();
-    const int INVENTORY_LEN = 10;
 
-    char **inventory = (char **)malloc(sizeof(char *) * INVENTORY_LEN);
-    for (int i = 0; i < INVENTORY_LEN; i++)
-    {
-        inventory[i] = NULL;
-    }
+    // inventory as double linked-list
+    DoubleLinkedList *inventory = create_list();
 
     // gameloop
     Scene *currentScene = first;
@@ -62,12 +57,13 @@ int main(int argc, char *argv[])
         // way to check the inventory
         if (!strcmp(inp, "inventory") || !strcmp(inp, "i"))
         {
-            for (int i = 0; i < INVENTORY_LEN; i++)
+            DoubleLinkedListNode *current = inventory->head;
+            int index = 1;
+            while (current != NULL)
             {
-                if (inventory[i] != NULL)
-                {
-                    printf("%d. %s\n", i + 1, inventory[i]);
-                }
+                printf("  %d. %s\n", index, current->value);
+                index++;
+                current = current->next;
             }
             blockWithInput();
             continue;
@@ -77,13 +73,14 @@ int main(int argc, char *argv[])
         if (!strcmp(inp, "r") || !strcmp(inp, "restart"))
         {
             currentScene = first;
+            size_t size = inventory->size;
             // clear the inventory
-            for (int i = 0; i < INVENTORY_LEN; i++)
+            for (int i = 0; i < size; i++)
             {
-                if (inventory[i] != NULL)
+                char *torm;
+                if (list_remove_at(inventory, 0, (void **)&torm))
                 {
-                    free(inventory[i]);
-                    inventory[i] = NULL;
+                    free(torm);
                 }
             }
             continue;
@@ -105,7 +102,7 @@ int main(int argc, char *argv[])
             blockWithInput();
             continue;
         }
-        currentScene = (*chosenOption->handler)(currentScene, chosenOption, inventory, INVENTORY_LEN);
+        currentScene = (*chosenOption->handler)(currentScene, chosenOption, inventory);
     }
     return 0;
 }
