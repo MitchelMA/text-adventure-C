@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../LinkedList/linkedlist.h"
+#include "../DoubleLinkedList/doubleLinkedList.h"
 #include "adventure.h"
 #include "../extra/input.h"
 
@@ -62,7 +63,7 @@ void freeScene(Scene *scene)
 }
 
 // `Option` implementations -------------- //
-Option *newOption(char *optionText, char *get, char *need, Scene *nextScene, Scene *(*handler)(Scene *, Option *, char **, int))
+Option *newOption(char *optionText, char *get, char *need, Scene *nextScene, Scene *(*handler)(Scene *, Option *, DoubleLinkedList *))
 {
     Option *tmp = (Option *)malloc(sizeof(Option));
     tmp->optionText = optionText;
@@ -74,23 +75,27 @@ Option *newOption(char *optionText, char *get, char *need, Scene *nextScene, Sce
 }
 
 // Example Handler(s) -------------------- //
-Scene *basicHandler(Scene *currentScene, Option *chosenOption, char **inventory, int inventorySize)
+Scene *basicHandler(Scene *currentScene, Option *chosenOption, DoubleLinkedList *inv)
 {
-    // check for need
+    if (inv == NULL)
+    {
+        printf("Er is geen inventory!\n");
+        return currentScene;
+    }
+
     if (chosenOption->need != NULL && strcmp(chosenOption->need, ""))
     {
         bool has = false;
-        for (int i = 0; i < inventorySize; i++)
+        DoubleLinkedListNode *current = inv->head;
+        while (current != NULL)
         {
-            if (inventory[i] == NULL)
-            {
-                continue;
-            }
-            if (!strcmp(inventory[i], chosenOption->need))
+            const char *val = current->value;
+            if (!strcmp(val, chosenOption->need))
             {
                 has = true;
                 break;
             }
+            current = current->next;
         }
 
         if (!has)
@@ -101,17 +106,14 @@ Scene *basicHandler(Scene *currentScene, Option *chosenOption, char **inventory,
         }
     }
 
-    // check for get
     if (chosenOption->get != NULL && strcmp(chosenOption->get, ""))
     {
         bool has = false;
-        for (int i = 0; i < inventorySize; i++)
+        DoubleLinkedListNode *current = inv->head;
+        while (current != NULL)
         {
-            if (inventory[i] == NULL)
-            {
-                continue;
-            }
-            if (!strcmp(inventory[i], chosenOption->get))
+            const char *val = current->value;
+            if (!strcmp(val, chosenOption->get))
             {
                 has = true;
                 break;
@@ -120,19 +122,17 @@ Scene *basicHandler(Scene *currentScene, Option *chosenOption, char **inventory,
 
         if (!has)
         {
-            for (int i = 0; i < inventorySize; i++)
+            size_t clen = strlen(chosenOption->get) + 1;
+            char *cpy = malloc(clen);
+            if (cpy == NULL)
             {
-                if (inventory[i] != NULL)
-                {
-                    continue;
-                }
-                size_t clen = strlen(chosenOption->get) + 1;
-                inventory[i] = (char *)malloc(clen);
-                strncpy(inventory[i], chosenOption->get, clen);
-                printf("zojuist verkregen: %s\n", chosenOption->get);
-                blockWithInput();
-                break;
+                printf("kon string niet kopiëren!\n");
+                return currentScene;
             }
+            strncpy(cpy, chosenOption->get, clen);
+            list_append(inv, cpy);
+            printf("Zojuist verkregen: %s\n", chosenOption->get);
+            blockWithInput();
         }
     }
     return chosenOption->nextScene;

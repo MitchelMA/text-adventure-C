@@ -3,6 +3,7 @@ CFLAGS := -g
 
 source_files := main.o \
 LinkedList\linkedlist.o \
+DoubleLinkedList\doubleLinkedList.o \
 Adventure\adventure.o \
 extra\clearscreen.o \
 extra\input.o \

@@ -6,8 +6,9 @@
 #include "extra/clearscreen.h"
 #include "extra/input.h"
 #include "Story/story.h"
+#include "DoubleLinkedList/doubleLinkedList.h"
 
-Scene *testRem(Scene *currentScene, Option *chosenOption, char **inventory, int inventorySize)
+Scene *testRem(Scene *currentScene, Option *chosenOption, DoubleLinkedList *inv)
 {
     printf("voer het wachtwoord in: ");
     char *inp = safeInput(256);
@@ -43,13 +44,9 @@ Scene *testRem(Scene *currentScene, Option *chosenOption, char **inventory, int 
 int main(int argc, char *argv[])
 {
     setupStory();
-    const int INVENTORY_LEN = 10;
 
-    char **inventory = (char **)malloc(sizeof(char *) * INVENTORY_LEN);
-    for (int i = 0; i < INVENTORY_LEN; i++)
-    {
-        inventory[i] = NULL;
-    }
+    // inventory as double linked-list
+    DoubleLinkedList *inv = create_list();
 
     // gameloop
     Scene *currentScene = first;
@@ -62,12 +59,13 @@ int main(int argc, char *argv[])
         // way to check the inventory
         if (!strcmp(inp, "inventory") || !strcmp(inp, "i"))
         {
-            for (int i = 0; i < INVENTORY_LEN; i++)
+            DoubleLinkedListNode *current = inv->head;
+            int index = 1;
+            while (current != NULL)
             {
-                if (inventory[i] != NULL)
-                {
-                    printf("%d. %s\n", i + 1, inventory[i]);
-                }
+                printf("%d. %s", index, current->value);
+                index++;
+                current = current->next;
             }
             blockWithInput();
             continue;
@@ -77,13 +75,14 @@ int main(int argc, char *argv[])
         if (!strcmp(inp, "r") || !strcmp(inp, "restart"))
         {
             currentScene = first;
+            size_t size = inv->size;
             // clear the inventory
-            for (int i = 0; i < INVENTORY_LEN; i++)
+            for (int i = 0; i < size; i++)
             {
-                if (inventory[i] != NULL)
+                char *torm;
+                if (list_remove_at(inv, 0, (void **)&torm))
                 {
-                    free(inventory[i]);
-                    inventory[i] = NULL;
+                    free(torm);
                 }
             }
             continue;
@@ -105,7 +104,7 @@ int main(int argc, char *argv[])
             blockWithInput();
             continue;
         }
-        currentScene = (*chosenOption->handler)(currentScene, chosenOption, inventory, INVENTORY_LEN);
+        currentScene = (*chosenOption->handler)(currentScene, chosenOption, inv);
     }
     return 0;
 }

@@ -44,7 +44,7 @@ void freeScene(Scene *scene);
  * @param handler A Function Pointer that will handle the input of the player
  * @return The new instance of an Option Structure
  */
-Option *newOption(char *optionText, char *get, char *need, Scene *nextScene, Scene *(*handler)(Scene *, Option *, char **, int));
+Option *newOption(char *optionText, char *get, char *need, Scene *nextScene, Scene *(*handler)(Scene *, Option *, DoubleLinkedList *));
 
 /**
  * @brief The basic option-handle function
@@ -55,6 +55,6 @@ Option *newOption(char *optionText, char *get, char *need, Scene *nextScene, Sce
  * @param inventorySize The size of the inventory of the player
  * @return The reference to the next scene
  */
-Scene *basicHandler(Scene *currentScene, Option *chosenOption, char **inventory, int inventorySize);
+Scene *basicHandler(Scene *currentScene, Option *chosenOption, DoubleLinkedList *inv);
 
 #endif

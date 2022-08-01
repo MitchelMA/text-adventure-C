@@ -36,6 +36,14 @@ typedef struct LinkedListNode LinkedListNode;
 
 #pragma endregion LINKEDLIST
 
+#pragma region DOUBLELINKEDLIST
+
+typedef struct DoubleLinkedList DoubleLinkedList;
+
+typedef struct DoubleLinkedListNode DoubleLinkedListNode;
+
+#pragma endregion DOUBLELINKEDLIST
+
 #pragma region STRUCTSETUP
 
 struct Scene
@@ -50,7 +58,7 @@ struct Option
     char *get;
     char *need;
     Scene *nextScene;
-    Scene *(*handler)(Scene *, Option *, char **, int);
+    Scene *(*handler)(Scene *, Option *, DoubleLinkedList *);
 };
 
 struct LinkedList
@@ -63,6 +71,19 @@ struct LinkedListNode
 {
     Option *value;
     LinkedListNode *next;
+};
+
+struct DoubleLinkedList
+{
+    unsigned long long size;
+    DoubleLinkedListNode *head;
+};
+
+struct DoubleLinkedListNode
+{
+    void *value;
+    DoubleLinkedListNode *prev;
+    DoubleLinkedListNode *next;
 };
 
 #pragma endregion STRUCTSETUP
