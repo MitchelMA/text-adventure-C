@@ -1,5 +1,6 @@
 #include "story.h"
 #include "../LinkedList/linkedlist.h"
+#include "../DoubleLinkedList/doubleLinkedList.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -116,57 +117,57 @@ void setupStory()
     // ----------- setup of the `Options` --------- //
     // first scene
     option = newOption("Zelf vluchten", "paspoort", NULL, stuk_2, basicHandler);
-    linkedListAppend(first->options, option);
+    list_append(first->options, option);
     option = newOption("Gesmokkeld worden", NULL, NULL, stuk_3, basicHandler);
-    linkedListAppend(first->options, option);
+    list_append(first->options, option);
 
     // stuk_2
     option = newOption("In de region blijven", NULL, NULL, stuk_4, basicHandler);
-    linkedListAppend(stuk_2->options, option);
+    list_append(stuk_2->options, option);
     option = newOption("Buiten de regio gaan", NULL, "paspoort", stuk_5, basicHandler);
-    linkedListAppend(stuk_2->options, option);
+    list_append(stuk_2->options, option);
 
     // stuk _3
     option = newOption("Richting Syrie en dan met de boot naar Italie", NULL, NULL, stuk_8, basicHandler);
-    linkedListAppend(stuk_3->options, option);
+    list_append(stuk_3->options, option);
     option = newOption("Richting Turijke en dan over land naar Griekenland", NULL, NULL, stuk_9, basicHandler);
-    linkedListAppend(stuk_3->options, option);
+    list_append(stuk_3->options, option);
 
     // stuk_4
     option = newOption("Pakistan", NULL, NULL, stuk_20, basicHandler);
-    linkedListAppend(stuk_4->options, option);
+    list_append(stuk_4->options, option);
     option = newOption("India", NULL, NULL, stuk_21, basicHandler);
-    linkedListAppend(stuk_4->options, option);
+    list_append(stuk_4->options, option);
 
     // stuk 5
     option = newOption("NL Actief Evacuatieplan", NULL, NULL, stuk_6, basicHandler);
-    linkedListAppend(stuk_5->options, option);
+    list_append(stuk_5->options, option);
     option = newOption("Via Turkije", NULL, NULL, stuk_7, basicHandler);
-    linkedListAppend(stuk_5->options, option);
+    list_append(stuk_5->options, option);
 
     // stuk 6
     option = newOption("Alsnog gesmokkeld gaan", NULL, NULL, stuk_3, basicHandler);
-    linkedListAppend(stuk_6->options, option);
+    list_append(stuk_6->options, option);
     option = newOption("Alsnog via Turkije", NULL, NULL, stuk_7, basicHandler);
-    linkedListAppend(stuk_6->options, option);
+    list_append(stuk_6->options, option);
 
     // stuk 7
     option = newOption("Via Griekenland in de EU komen", NULL, NULL, stuk_16, basicHandler);
-    linkedListAppend(stuk_7->options, option);
+    list_append(stuk_7->options, option);
     option = newOption("Over de Zwarte Zee via Wit-Rusland Polen binnen gaan", NULL, NULL, stuk_17, basicHandler);
-    linkedListAppend(stuk_7->options, option);
+    list_append(stuk_7->options, option);
 
     // stuk 8
     option = newOption("Verder Europa in", NULL, "paspoort", stuk_12, basicHandler);
-    linkedListAppend(stuk_8->options, option);
+    list_append(stuk_8->options, option);
     option = newOption("Papieren aanvragen in Italie", NULL, NULL, stuk_13, basicHandler);
-    linkedListAppend(stuk_8->options, option);
+    list_append(stuk_8->options, option);
 
     // stuk 9
     option = newOption("Turkije binnengaan", NULL, "paspoort", stuk_11, basicHandler);
-    linkedListAppend(stuk_9->options, option);
+    list_append(stuk_9->options, option);
     option = newOption("Voor de grens blijven", NULL, NULL, stuk_10, basicHandler);
-    linkedListAppend(stuk_9->options, option);
+    list_append(stuk_9->options, option);
 
     // stuk 10
 
@@ -174,21 +175,21 @@ void setupStory()
 
     // stuk 12
     option = newOption("Duitsland", NULL, NULL, stuk_18, basicHandler);
-    linkedListAppend(stuk_12->options, option);
+    list_append(stuk_12->options, option);
     option = newOption("Nederland", NULL, NULL, stuk_19, basicHandler);
-    linkedListAppend(stuk_12->options, option);
+    list_append(stuk_12->options, option);
 
     // stuk 13
     option = newOption("Illegale", "paspoort", NULL, stuk_14, basicHandler);
-    linkedListAppend(stuk_13->options, option);
+    list_append(stuk_13->options, option);
     option = newOption("Legale", NULL, NULL, stuk_15, basicHandler);
-    linkedListAppend(stuk_13->options, option);
+    list_append(stuk_13->options, option);
 
     // stuk 14
     option = newOption("Duitsland", NULL, NULL, stuk_18, basicHandler);
-    linkedListAppend(stuk_14->options, option);
+    list_append(stuk_14->options, option);
     option = newOption("Nederland", NULL, NULL, stuk_19, basicHandler);
-    linkedListAppend(stuk_14->options, option);
+    list_append(stuk_14->options, option);
 
     // stuk 15
 
@@ -196,9 +197,9 @@ void setupStory()
 
     // stuk 17
     option = newOption("Duitsland", NULL, NULL, stuk_18, basicHandler);
-    linkedListAppend(stuk_17->options, option);
+    list_append(stuk_17->options, option);
     option = newOption("Nederland", NULL, NULL, stuk_19, basicHandler);
-    linkedListAppend(stuk_17->options, option);
+    list_append(stuk_17->options, option);
 
     // stuk 18
 

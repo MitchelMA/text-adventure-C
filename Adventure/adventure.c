@@ -1,17 +1,22 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "../LinkedList/linkedlist.h"
 #include "../DoubleLinkedList/doubleLinkedList.h"
 #include "adventure.h"
 #include "../extra/input.h"
+
+// LOCAL PROTOTYPES //
+
+bool freeOptionList(DoubleLinkedList *optionList);
+
+// END LOCAL PROTOTYPES //
 
 // `Scene` implementations --------------- //
 Scene *newScene(char *text)
 {
     Scene *tmp = (Scene *)malloc(sizeof(Scene));
     tmp->sceneText = text;
-    tmp->options = newLinkedList();
+    tmp->options = create_list();
     return tmp;
 }
 
@@ -24,11 +29,12 @@ void initScene(Scene *scene)
 
     printf("%s\n\n", scene->sceneText);
     // print the option text
-    LinkedListNode *current = scene->options->head;
+    DoubleLinkedListNode *current = scene->options->head;
     int index = 1;
     while (current != NULL)
     {
-        printf("  %d. %s\n", index, current->value->optionText);
+        const Option *opt = current->value;
+        printf("  %d. %s\n", index, opt->optionText);
 
         index++;
         current = current->next;
@@ -42,7 +48,7 @@ Option *handleInput(Scene *scene, int input)
         return NULL;
     }
     // get the chosen option from the linked-list as a node
-    LinkedListNode *node = linkedListAt(scene->options, input - 1);
+    DoubleLinkedListNode *node = list_at(scene->options, input - 1);
 
     if (node == NULL)
     {
@@ -58,7 +64,7 @@ void freeScene(Scene *scene)
     {
         return;
     }
-    freeLinkedList(scene->options);
+    freeOptionList(scene->options);
     free(scene);
 }
 
@@ -72,6 +78,27 @@ Option *newOption(char *optionText, char *get, char *need, Scene *nextScene, Sce
     tmp->nextScene = nextScene;
     tmp->handler = handler;
     return tmp;
+}
+
+bool freeOptionList(DoubleLinkedList *optionList)
+{
+    if (optionList == NULL)
+    {
+        return false;
+    }
+
+    size_t size = optionList->size;
+    for (size_t i = 0; i < size; i++)
+    {
+        Option *torm;
+        if (list_remove_at(optionList, 0, (void **)&torm))
+        {
+            // can now safely free the memory of `torm`
+            free(torm);
+        }
+    }
+    free(optionList);
+    return true;
 }
 
 // Example Handler(s) -------------------- //

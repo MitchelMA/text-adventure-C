@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Adventure/adventure.h"
-#include "LinkedList/linkedlist.h"
 #include "extra/clearscreen.h"
 #include "extra/input.h"
 #include "Story/story.h"
@@ -17,21 +16,20 @@ Scene *testRem(Scene *currentScene, Option *chosenOption, DoubleLinkedList *inv)
         printf("Dat was het verkeerde wachtwoord");
         blockWithInput();
         // find the chosen option in the options
-        LinkedListNode *node = currentScene->options->head;
-        int index = 0;
+        DoubleLinkedListNode *node = currentScene->options->head;
+        size_t index = 0;
         while (node != NULL)
         {
-            printf("Test\n");
             if (node->value == chosenOption)
             {
-                // match found
-                Option *torm = linkedListRemoveAt(currentScene->options, index);
-                if (torm != NULL)
+                Option *torm;
+                if (list_remove_at(currentScene->options, index, (void **)&torm))
                 {
                     free(torm);
                 }
                 break;
             }
+
             index++;
             node = node->next;
         }
@@ -39,6 +37,17 @@ Scene *testRem(Scene *currentScene, Option *chosenOption, DoubleLinkedList *inv)
     }
 
     return chosenOption->nextScene;
+}
+
+int main2()
+{
+    while (1)
+    {
+        Scene *myScene = newScene("Dit is een mooie scene");
+        Option *opt1 = newOption("Text", NULL, NULL, myScene, basicHandler);
+        list_append(myScene->options, opt1);
+        freeScene(myScene);
+    }
 }
 
 int main(int argc, char *argv[])

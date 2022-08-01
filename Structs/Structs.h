@@ -49,7 +49,7 @@ typedef struct DoubleLinkedListNode DoubleLinkedListNode;
 struct Scene
 {
     char *sceneText;
-    LinkedList *options;
+    DoubleLinkedList *options;
 };
 
 struct Option
