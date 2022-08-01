@@ -39,23 +39,12 @@ Scene *testRem(Scene *currentScene, Option *chosenOption, DoubleLinkedList *inv)
     return chosenOption->nextScene;
 }
 
-int main2()
-{
-    while (1)
-    {
-        Scene *myScene = newScene("Dit is een mooie scene");
-        Option *opt1 = newOption("Text", NULL, NULL, myScene, basicHandler);
-        list_append(myScene->options, opt1);
-        freeScene(myScene);
-    }
-}
-
 int main(int argc, char *argv[])
 {
     setupStory();
 
     // inventory as double linked-list
-    DoubleLinkedList *inv = create_list();
+    DoubleLinkedList *inventory = create_list();
 
     // gameloop
     Scene *currentScene = first;
@@ -68,11 +57,11 @@ int main(int argc, char *argv[])
         // way to check the inventory
         if (!strcmp(inp, "inventory") || !strcmp(inp, "i"))
         {
-            DoubleLinkedListNode *current = inv->head;
+            DoubleLinkedListNode *current = inventory->head;
             int index = 1;
             while (current != NULL)
             {
-                printf("%d. %s", index, current->value);
+                printf("  %d. %s\n", index, current->value);
                 index++;
                 current = current->next;
             }
@@ -84,12 +73,12 @@ int main(int argc, char *argv[])
         if (!strcmp(inp, "r") || !strcmp(inp, "restart"))
         {
             currentScene = first;
-            size_t size = inv->size;
+            size_t size = inventory->size;
             // clear the inventory
             for (int i = 0; i < size; i++)
             {
                 char *torm;
-                if (list_remove_at(inv, 0, (void **)&torm))
+                if (list_remove_at(inventory, 0, (void **)&torm))
                 {
                     free(torm);
                 }
@@ -113,7 +102,7 @@ int main(int argc, char *argv[])
             blockWithInput();
             continue;
         }
-        currentScene = (*chosenOption->handler)(currentScene, chosenOption, inv);
+        currentScene = (*chosenOption->handler)(currentScene, chosenOption, inventory);
     }
     return 0;
 }

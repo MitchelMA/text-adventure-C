@@ -1,5 +1,4 @@
 #include "story.h"
-#include "../LinkedList/linkedlist.h"
 #include "../DoubleLinkedList/doubleLinkedList.h"
 #include <stdlib.h>
 #include <stdio.h>
