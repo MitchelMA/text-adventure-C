@@ -77,6 +77,7 @@ struct DoubleLinkedList
 {
     unsigned long long size;
     DoubleLinkedListNode *head;
+    DoubleLinkedListNode *tail;
 };
 
 struct DoubleLinkedListNode

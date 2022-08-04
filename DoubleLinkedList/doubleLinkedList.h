@@ -19,6 +19,35 @@ DoubleLinkedList *create_list();
 int list_append(DoubleLinkedList *list, void *value);
 
 /**
+ * @brief Pushes a new item at the start of the double linked-list.
+ *
+ * @param list
+ * @param value
+ * @return int
+ */
+int list_push(DoubleLinkedList *list, void *value);
+
+/**
+ * @brief Inserts a new item into the list before the node at the specified index.
+ *
+ * @param list
+ * @param value
+ * @param index
+ * @return 1 when inserting was succesful, else 0.
+ */
+int list_insert_before(DoubleLinkedList *list, void *value, unsigned long long index);
+
+/**
+ * @brief Inserts a new item into the list after the node at the specified index.
+ *
+ * @param list
+ * @param value
+ * @param index
+ * @return 1 when inserting was succesful, else 0.
+ */
+int list_insert_after(DoubleLinkedList *list, void *value, unsigned long long index);
+
+/**
  * @brief Returns the `DoubleLinkedListNode` from the list at a specified index.
  *
  * @param list
@@ -40,23 +69,21 @@ DoubleLinkedListNode *list_at(DoubleLinkedList *list, unsigned long long index);
 int list_remove_at(DoubleLinkedList *list, unsigned long long index, void **out);
 
 /**
- * @brief Inserts a new item into the list before the node at the specified index.
+ * @brief Removes the head from the list en replaces it with the succesive node.
  *
  * @param list
- * @param value
- * @param index
- * @return 1 when inserting was succesful, else 0.
+ * @param oldheadvalue
+ * @return int
  */
-int list_insert_before(DoubleLinkedList *list, void *value, unsigned long long index);
+int list_remove_head(DoubleLinkedList *list, void **oldheadvalue);
 
 /**
- * @brief Inserts a new item into the list after the node at the specified index.
+ * @brief Removes the tail from the list en replaces it with the preceding node.
  *
  * @param list
- * @param value
- * @param index
- * @return 1 when inserting was succesful, else 0.
+ * @param oldtailvalue
+ * @return int
  */
-int list_insert_after(DoubleLinkedList *list, void *value, unsigned long long index);
+int list_remove_tail(DoubleLinkedList *list, void **oldtailvalue);
 
 #endif // __DOUBLE_LINKED_LIST_H__
